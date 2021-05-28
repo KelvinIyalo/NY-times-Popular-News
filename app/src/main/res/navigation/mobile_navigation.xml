@@ -3,23 +3,39 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/breakingNewsFragment">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.example.pressreview.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/breakingNewsFragment"
+        android:name="com.example.pressreview.ui.BreakingNewsFragment"
+        android:label="@string/title_BreakingNews"
+        tools:layout="@layout/breakingnew_fragment" >
+        <action
+            android:id="@+id/action_breakingNewsFragment_to_newsDetails"
+            app:destination="@id/newsDetails" />
+    </fragment>
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.pressreview.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/savedNewsFragment"
+        android:name="com.example.pressreview.ui.SavedNewsFragment"
+        android:label="@string/title_FavoriteNews"
+        tools:layout="@layout/savednews_fragment" >
+        <action
+            android:id="@+id/action_savedNewsFragment_to_newsDetails"
+            app:destination="@id/newsDetails" />
+    </fragment>
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.example.pressreview.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/searchNewsFragment"
+        android:name="com.example.pressreview.ui.SearchNewsFragment"
+        android:label="@string/title_searchNews"
+        tools:layout="@layout/searchnew_fragment" >
+        <action
+            android:id="@+id/action_searchNewsFragment_to_newsDetails"
+            app:destination="@id/newsDetails" />
+    </fragment>
+    <fragment
+        android:id="@+id/newsDetails"
+        android:name="com.example.pressreview.ui.NewsDetails"
+        android:label="NewsDetails" />
 </navigation>
