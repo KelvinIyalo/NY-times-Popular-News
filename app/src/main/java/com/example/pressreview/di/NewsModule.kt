@@ -1,6 +1,7 @@
 package com.example.pressreview.di
 
-import com.example.pressreview.constants.utill.BASE_URL
+
+import com.example.pressreview.constants.BASE_URL
 import com.example.pressreview.network.NewsApi
 import dagger.Module
 import dagger.Provides

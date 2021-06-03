@@ -2,6 +2,7 @@ package com.example.pressreview.data
 
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class Article(
     @SerializedName("author")
@@ -20,4 +21,4 @@ data class Article(
     var url: String?,
     @SerializedName("urlToImage")
     var urlToImage: String?
-)
+):Serializable

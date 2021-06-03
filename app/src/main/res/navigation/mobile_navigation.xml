@@ -12,7 +12,7 @@
         tools:layout="@layout/breakingnew_fragment" >
         <action
             android:id="@+id/action_breakingNewsFragment_to_newsDetails"
-            app:destination="@id/newsDetails" />
+            app:destination="@id/newsDetailsArg" />
     </fragment>
 
     <fragment
@@ -22,7 +22,7 @@
         tools:layout="@layout/savednews_fragment" >
         <action
             android:id="@+id/action_savedNewsFragment_to_newsDetails"
-            app:destination="@id/newsDetails" />
+            app:destination="@id/newsDetailsArg" />
     </fragment>
 
     <fragment
@@ -32,10 +32,15 @@
         tools:layout="@layout/searchnew_fragment" >
         <action
             android:id="@+id/action_searchNewsFragment_to_newsDetails"
-            app:destination="@id/newsDetails" />
+            app:destination="@id/newsDetailsArg" />
     </fragment>
     <fragment
-        android:id="@+id/newsDetails"
+        android:id="@+id/newsDetailsArg"
         android:name="com.example.pressreview.ui.NewsDetails"
-        android:label="NewsDetails" />
+        android:label="NewsDetails"
+        tools:layout="@layout/news_details">
+        <argument
+            android:name="article"
+            app:argType="com.example.pressreview.data.Article" />
+    </fragment>
 </navigation>

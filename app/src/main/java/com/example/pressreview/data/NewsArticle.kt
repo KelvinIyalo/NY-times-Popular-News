@@ -2,6 +2,7 @@ package com.example.pressreview.data
 
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class NewsArticle(
     @SerializedName("articles")
@@ -10,4 +11,4 @@ data class NewsArticle(
     var status: String?,
     @SerializedName("totalResults")
     var totalResults: Int?
-)
+):Serializable

@@ -15,6 +15,11 @@ class MyViewModel @ViewModelInject constructor(private val repository: Repositor
     val myBreakingNews:MutableLiveData<Resource<NewsArticle>> = MutableLiveData()
     val myQuery:MutableLiveData<Resource<NewsArticle>> = MutableLiveData()
 
+    init {
+        getHeadlines("ng")
+    }
+
+
     fun getHeadlines(Country:String){
         viewModelScope.launch {
             myBreakingNews.postValue(Resource.Loading())
@@ -25,7 +30,7 @@ class MyViewModel @ViewModelInject constructor(private val repository: Repositor
 
     }
 
-    fun handleBreakingNews(response:Response<NewsArticle>):Resource<NewsArticle>{
+  private  fun handleBreakingNews(response:Response<NewsArticle>):Resource<NewsArticle>{
         if (response.isSuccessful){
             response.body()?.let { ResultResponse ->
             return Resource.Success(ResultResponse)
@@ -48,7 +53,7 @@ class MyViewModel @ViewModelInject constructor(private val repository: Repositor
 
     }
 
-    fun handleQuery(response:Response<NewsArticle>):Resource<NewsArticle>{
+  private  fun handleQuery(response:Response<NewsArticle>):Resource<NewsArticle>{
         if (response.isSuccessful){
             response.body()?.let { ResultResponse ->
                 return Resource.Success(ResultResponse)

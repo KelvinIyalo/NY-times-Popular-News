@@ -1,5 +1,6 @@
 package com.example.pressreview.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -7,11 +8,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.GlideContext
+import com.example.pressreview.constants.getProgressDrawable
+import com.example.pressreview.constants.loadImage
 import com.example.pressreview.data.Article
 import com.example.pressreview.databinding.NewsLayoutBinding
 import javax.inject.Inject
 
-class RecyclerViewAdapter @Inject constructor(val context: GlideContext):RecyclerView.Adapter<ViewHolder>() {
+class RecyclerViewAdapter @Inject constructor(val context: Context):RecyclerView.Adapter<ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(NewsLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))
     }
@@ -19,7 +22,8 @@ class RecyclerViewAdapter @Inject constructor(val context: GlideContext):Recycle
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val article = differ.currentList[position]
         holder.binding.apply {
-            Glide.with(context).load(article.urlToImage).into(NewsImage)
+          //  Glide.with(context).load(article.urlToImage).into(NewsImage)
+            NewsImage.loadImage(article.urlToImage, getProgressDrawable(context))
            tvWebHost.text = article.source?.name
             tvDate.text = article.publishedAt
             Headline.text = article.title
