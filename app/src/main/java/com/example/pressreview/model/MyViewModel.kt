@@ -1,10 +1,12 @@
 package com.example.pressreview.model
 
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pressreview.constants.Resource
+import com.example.pressreview.data.Article
 import com.example.pressreview.data.NewsArticle
 import com.example.pressreview.repository.Repository
 import kotlinx.coroutines.launch
@@ -63,5 +65,16 @@ class MyViewModel @ViewModelInject constructor(private val repository: Repositor
     }
 
 
+    //DataBase setup
+
+    fun Updert(article: Article) = viewModelScope.launch {
+        repository.Upsert(article)
+    }
+
+    fun delete(article: Article) = viewModelScope.launch {
+        repository.delete(article)
+    }
+
+    fun getAllFromDB():LiveData<List<Article>> = repository.getAllFromDB()
 
 }

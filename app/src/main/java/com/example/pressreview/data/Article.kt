@@ -1,12 +1,17 @@
 package com.example.pressreview.data
 
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
+@Entity(tableName = "ArticlesDataBase")
 data class Article(
+        @PrimaryKey(autoGenerate = true)
+        var id:Int? = null,
     @SerializedName("author")
-    var author: Any?,
+    var author: String?,
     @SerializedName("content")
     var content: String?,
     @SerializedName("description")

@@ -28,7 +28,8 @@ class RecyclerViewAdapter @Inject constructor(val context: Context):RecyclerView
             tvDate.text = article.publishedAt
             Headline.text = article.title
             body.text = article.description
-            setOnItemClickListener{
+
+            cardBg.setOnClickListener{
                 onItemCliclListener?.let { it(article) }
             }
         }
