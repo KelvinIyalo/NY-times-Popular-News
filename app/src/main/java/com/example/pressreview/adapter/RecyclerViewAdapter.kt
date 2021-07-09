@@ -1,8 +1,10 @@
 package com.example.pressreview.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -22,12 +24,18 @@ class RecyclerViewAdapter @Inject constructor(val context: Context):RecyclerView
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val article = differ.currentList[position]
         holder.binding.apply {
-          //  Glide.with(context).load(article.urlToImage).into(NewsImage)
             NewsImage.loadImage(article.urlToImage, getProgressDrawable(context))
            tvWebHost.text = article.source?.name
             tvDate.text = article.publishedAt
             Headline.text = article.title
             body.text = article.description
+            shareBtn.setOnClickListener {
+                val intent = Intent()
+                intent.action = Intent.ACTION_SEND
+                intent.putExtra(Intent.EXTRA_TEXT,article.url)
+                intent.type = "text/plain"
+                startActivity(context,Intent.createChooser(intent,"share To:"),null)
+            }
 
             cardBg.setOnClickListener{
                 onItemCliclListener?.let { it(article) }

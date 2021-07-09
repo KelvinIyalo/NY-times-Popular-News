@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -18,6 +19,7 @@ import com.example.pressreview.adapter.RecyclerViewAdapter
 import com.example.pressreview.constants.Resource
 import com.example.pressreview.databinding.BreakingnewFragmentBinding
 import com.example.pressreview.model.MyViewModel
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -35,36 +37,40 @@ class BreakingNewsFragment: Fragment(R.layout.breakingnew_fragment) {
             val bundle = Bundle().apply {
                 putSerializable("article",it)
             }
+
             findNavController().navigate(
                     R.id.action_breakingNewsFragment_to_newsDetails,
-                    bundle
-            )
-
+                    bundle)
         }
 
-
-    viewModel.myBreakingNews.observe(viewLifecycleOwner, Observer { response ->
-        when(response){
-            is Resource.Loading -> {showProgressBar()}
-
-            is Resource.Error ->
-            {
-                 hideProgressBar()
-               Log.d("MainActivity", "An Error occurred: {$response.Message}")
-            }
-
-            is Resource.Success ->
-            {
-                hideProgressBar()
-                response.data?.let {
-                    MyAdapter.differ.submitList(it.articles)
-                }
-            }
-
+        val swipe = binding.swipeToRefreshLayout
+        swipe.setOnRefreshListener {
+            refresh()
+           swipe.isRefreshing = false
         }
-    })
 
+//    viewModel.myBreakingNews.observe(viewLifecycleOwner, Observer { response ->
+//        when(response){
+//            is Resource.Loading -> {showProgressBar()}
+//
+//            is Resource.Error ->
+//            {
+//                 hideProgressBar()
+//               Log.d("MainActivity", "An Error occurred: {$response.Message}")
+//            }
+//
+//            is Resource.Success ->
+//            {
+//                hideProgressBar()
+//                response.data?.let {
+//                    MyAdapter.differ.submitList(it.articles)
+//                }
+//            }
+//
+//        }
+//    })
 
+        refresh()
 
 
 
@@ -72,10 +78,12 @@ class BreakingNewsFragment: Fragment(R.layout.breakingnew_fragment) {
     }
 
 fun showProgressBar(){
-    binding.progressBar2.visibility = View.VISIBLE
+    binding.shimmerLayout.visibility = View.VISIBLE
+    binding.shimmerLayout.startShimmerAnimation()
 }
     fun hideProgressBar(){
-    binding.progressBar2.visibility = View.INVISIBLE
+    binding.shimmerLayout.visibility = View.GONE
+        binding.shimmerLayout.stopShimmerAnimation()
 }
     fun setupRV(){
         MyAdapter = RecyclerViewAdapter(this@BreakingNewsFragment.requireContext())
@@ -83,5 +91,29 @@ fun showProgressBar(){
             adapter = MyAdapter
             layoutManager = LinearLayoutManager(activity)
         }
+    }
+    fun refresh(){
+        viewModel.myBreakingNews.observe(viewLifecycleOwner, Observer { response ->
+            when(response){
+                is Resource.Loading -> {showProgressBar()}
+
+                is Resource.Error ->
+                {
+                    hideProgressBar()
+                   response.Message?.let { message ->
+                       Snackbar.make(binding.root,"An Error occurred:$message ", Snackbar.LENGTH_SHORT).show()
+                   }
+                }
+
+                is Resource.Success ->
+                {
+                    hideProgressBar()
+                    response.data?.let {
+                        MyAdapter.differ.submitList(it.articles)
+                    }
+                }
+
+            }
+        })
     }
 }

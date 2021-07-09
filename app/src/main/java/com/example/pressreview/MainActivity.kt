@@ -27,5 +27,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.breakingNewsFragment, R.id.savedNewsFragment, R.id.searchNewsFragment))
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
     }
 }

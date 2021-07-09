@@ -1,9 +1,11 @@
 package com.example.pressreview.ui
 
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -29,7 +31,23 @@ class NewsDetails:Fragment(R.layout.news_details) {
         val article = args.article
         binding.newsWebView.apply {
             webViewClient = WebViewClient()
-            article.url?.let { loadUrl(it) }
+            article.url?.let { loadUrl(it)
+            }
+            settings.javaScriptEnabled = true
+            webViewClient = object :WebViewClient(){
+                override fun onPageFinished(view: WebView?, url: String?) {
+                  binding.progressHorizontal.visibility = View.INVISIBLE
+                    binding.floatingActionButton.visibility = View.VISIBLE
+                    super.onPageFinished(view, url)
+                }
+
+                override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+                    binding.progressHorizontal.visibility = View.VISIBLE
+                    binding.floatingActionButton.visibility = View.INVISIBLE
+
+                    super.onPageStarted(view, url, favicon)
+                }
+            }
         }
 
 
@@ -44,4 +62,6 @@ class NewsDetails:Fragment(R.layout.news_details) {
 
 
        return binding.root }
+
+
 }

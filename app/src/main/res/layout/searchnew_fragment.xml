@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:orientation="vertical"
-    android:gravity="center_horizontal"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginTop="15dp"
         android:layout_width="match_parent"
         android:layout_height="45dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
         app:cardCornerRadius="25dp"
         app:cardMaxElevation="2dp">
 
@@ -48,21 +47,21 @@
     </androidx.cardview.widget.CardView>
 
 
-
-
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/lottieAnimationView"
             android:layout_width="343dp"
             android:layout_height="246dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginTop="100dp"
+            android:layout_marginStart="38dp"
+            android:layout_marginTop="160dp"
             android:layout_marginEnd="31dp"
             android:layout_marginBottom="265dp"
             android:visibility="visible"
@@ -71,24 +70,38 @@
             app:lottie_rawRes="@raw/search" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/saved_rv"
+            android:id="@+id/search_rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="20dp"
+            android:background="#36A5A8AA"
             android:visibility="invisible" />
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyle"
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:layout_marginTop="20dp"
+            android:visibility="invisible"
+            android:id="@+id/shimmer_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="357dp"
-            android:visibility="invisible" />
+            android:layout_height="match_parent"
+            android:foregroundGravity="center"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <include layout="@layout/shimmer_layout"/>
+                <include layout="@layout/shimmer_layout"/>
+                <include layout="@layout/shimmer_layout"/>
+
+
+            </LinearLayout>
+
+
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
 
 
     </RelativeLayout>
-
 
 
 </LinearLayout>
