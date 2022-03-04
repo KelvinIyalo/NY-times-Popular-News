@@ -1,6 +1,6 @@
 # NY-times-Popular-News
 This is a news app that makes use of a back end API from NY times to get news through Retrofit
-using the Get function in the network folder and returing s response
+using the Get function in the network folder and returing a response
 A Json File is recieved as response
 this files are being displayed on the Recylcer view throught the recyclerView adapter
 All the news are displayed and the home screen called News Fragment
