@@ -8,8 +8,9 @@ import com.bumptech.glide.GlideContext
 import com.bumptech.glide.request.RequestOptions
 import com.example.pressreview.R
 
-const val BASE_URL = "https://newsapi.org/v2/"
-    const val API_KEY = "3fa0dcbb658941ceaabf42487f4aa739"
+const val BASE_URL = "https://api.nytimes.com/svc/mostpopular/v2/emailed/"
+    const val API_KEY = "XAFvACL5sVX8vSNQzgA5hoS9fGQa8j4J"
+    const val IMAGE_PLACEHOLDER = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlnapZXOthtv-MsY7Zzx-JqeDoAvWgzfHq_AOdSHVGgVMBxi64u0SuvC2ky8o_Ua6Gq-8&usqp=CAU"
     const val PAGE_NUM = 1
 
 fun getProgressDrawable(context: Context):CircularProgressDrawable{

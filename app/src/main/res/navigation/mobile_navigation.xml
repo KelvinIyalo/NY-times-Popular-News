@@ -7,40 +7,24 @@
 
     <fragment
         android:id="@+id/breakingNewsFragment"
-        android:name="com.example.pressreview.ui.BreakingNewsFragment"
-        android:label="@string/title_BreakingNews"
-        tools:layout="@layout/breakingnew_fragment" >
+        android:name="com.example.pressreview.view.MajorNewsFragment"
+        android:label="@string/title_major_news"
+        tools:layout="@layout/major_news_fragment" >
         <action
             android:id="@+id/action_breakingNewsFragment_to_newsDetails"
             app:destination="@id/newsDetailsArg" />
     </fragment>
 
-    <fragment
-        android:id="@+id/savedNewsFragment"
-        android:name="com.example.pressreview.ui.SavedNewsFragment"
-        android:label="@string/title_FavoriteNews"
-        tools:layout="@layout/savednews_fragment" >
-        <action
-            android:id="@+id/action_savedNewsFragment_to_newsDetails"
-            app:destination="@id/newsDetailsArg" />
-    </fragment>
+
+
 
     <fragment
-        android:id="@+id/searchNewsFragment"
-        android:name="com.example.pressreview.ui.SearchNewsFragment"
-        android:label="@string/title_searchNews"
-        tools:layout="@layout/searchnew_fragment" >
-        <action
-            android:id="@+id/action_searchNewsFragment_to_newsDetails"
-            app:destination="@id/newsDetailsArg" />
-    </fragment>
-    <fragment
         android:id="@+id/newsDetailsArg"
-        android:name="com.example.pressreview.ui.NewsDetails"
+        android:name="com.example.pressreview.view.NewsDetails"
         android:label="NewsDetails"
         tools:layout="@layout/news_details">
         <argument
             android:name="article"
-            app:argType="com.example.pressreview.data.Article" />
+            app:argType="com.example.pressreview.module.Result" />
     </fragment>
 </navigation>

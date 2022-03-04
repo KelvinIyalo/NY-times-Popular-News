@@ -1,43 +1,42 @@
 package com.example.pressreview.adapter
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.GlideContext
+import com.example.pressreview.constants.IMAGE_PLACEHOLDER
 import com.example.pressreview.constants.getProgressDrawable
 import com.example.pressreview.constants.loadImage
-import com.example.pressreview.data.Article
 import com.example.pressreview.databinding.NewsLayoutBinding
+import com.example.pressreview.module.Result
 import javax.inject.Inject
 
-class RecyclerViewAdapter @Inject constructor(val context: Context):RecyclerView.Adapter<ViewHolder>() {
+class RecyclerViewAdapter @Inject constructor(val context: Context) :
+    RecyclerView.Adapter<ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(NewsLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+        return ViewHolder(
+            NewsLayoutBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val article = differ.currentList[position]
         holder.binding.apply {
-            NewsImage.loadImage(article.urlToImage, getProgressDrawable(context))
-           tvWebHost.text = article.source?.name
-            tvDate.text = article.publishedAt
+            NewsImage.loadImage(
+                article.media[0].mediaMetadata[0].url,
+                getProgressDrawable(context)
+            )
+            tvWebHost.text = article.source
+            tvDate.text = article.published_date
             Headline.text = article.title
-            body.text = article.description
-            shareBtn.setOnClickListener {
-                val intent = Intent()
-                intent.action = Intent.ACTION_SEND
-                intent.putExtra(Intent.EXTRA_TEXT,article.url)
-                intent.type = "text/plain"
-                startActivity(context,Intent.createChooser(intent,"share To:"),null)
-            }
-
-            cardBg.setOnClickListener{
+            body.text = article.abstract
+            cardBg.setOnClickListener {
                 onItemCliclListener?.let { it(article) }
             }
         }
@@ -47,21 +46,22 @@ class RecyclerViewAdapter @Inject constructor(val context: Context):RecyclerView
         return differ.currentList.size
     }
 
-    private val diffCallback = object :DiffUtil.ItemCallback<Article>(){
-        override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {
+    private val diffCallback = object : DiffUtil.ItemCallback<Result>() {
+        override fun areItemsTheSame(oldItem: Result, newItem: Result): Boolean {
             return oldItem.url == newItem.url
         }
 
-        override fun areContentsTheSame(oldItem: Article, newItem: Article): Boolean {
+        override fun areContentsTheSame(oldItem: Result, newItem: Result): Boolean {
             return oldItem == newItem
         }
 
     }
-    val differ = AsyncListDiffer(this,diffCallback)
+    val differ = AsyncListDiffer(this, diffCallback)
 
-    private var onItemCliclListener:((Article)-> Unit)? = null
-    fun setOnItemClickListener(Listener:(Article) -> Unit){
+    private var onItemCliclListener: ((Result) -> Unit)? = null
+    fun setOnItemClickListener(Listener: (Result) -> Unit) {
         onItemCliclListener = Listener
     }
 }
-class ViewHolder(val binding: NewsLayoutBinding):RecyclerView.ViewHolder(binding.root)
+
+class ViewHolder(val binding: NewsLayoutBinding) : RecyclerView.ViewHolder(binding.root)

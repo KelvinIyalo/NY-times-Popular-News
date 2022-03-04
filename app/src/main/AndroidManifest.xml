@@ -14,7 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PressReview">
-        <activity android:name=".ui.SplashScreen"
+        <activity android:name=".view.SplashScreen"
             android:theme="@style/Theme.Noaction">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

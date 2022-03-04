@@ -2,22 +2,18 @@ package com.example.pressreview.network
 
 
 import com.example.pressreview.constants.API_KEY
-import com.example.pressreview.data.NewsArticle
+import com.example.pressreview.constants.Resource
+
+import com.example.pressreview.module.NYTimesData
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface NewsApi {
-    @GET("top-headlines")
+    @GET("7.json")
     suspend fun getHeadLines(
-            @Query("country")Country:String,
-            @Query("apiKey")APIKEY:String = API_KEY
+            @Query("api-key")APIKEY:String = API_KEY
 
-    ):Response<NewsArticle>
+    ): Response<NYTimesData>
 
-    @GET("everything")
-    suspend fun getQuerry(
-            @Query("q")QuerryParra:String,
-            @Query("apiKey")APIKEY:String = API_KEY
-    ):Response<NewsArticle>
 }

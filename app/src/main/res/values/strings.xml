@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">Press Review</string>
-    <string name="title_BreakingNews">Breaking News</string>
-    <string name="title_FavoriteNews">Favorite</string>
-    <string name="title_searchNews">Search News</string>
+    <string name="app_name">NewYork Times</string>
+    <string name="title_major_news">NY Times Most Popular</string>
+    <string name="title_refresh">Refresh</string>
+    <string name="title_details">News In Detail</string>
 </resources>
